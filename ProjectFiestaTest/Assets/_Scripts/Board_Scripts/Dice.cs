@@ -9,7 +9,7 @@ public class Dice : MonoBehaviour
     [SerializeField] Vector3[] facesLook;
 
     public int currentFace;
-    public int totalPoints;
+    [SerializeField] private bool isRolling;
     RaycastHit hit;
 
     void Update()
@@ -26,7 +26,11 @@ public class Dice : MonoBehaviour
 
     public void ThrowDice()
     {
-        StartCoroutine(RollDice());
+        if (!isRolling)
+        {
+            isRolling = true;
+            StartCoroutine(RollDice());   
+        }
     }
 
     IEnumerator RollDice()
@@ -51,6 +55,7 @@ public class Dice : MonoBehaviour
         yield return new WaitUntil(() => PlayerManager.Instance.totalMoves > 0);
         PlayerManager.Instance.nDice -=1;
         PhasesManager.Instance.rollPhase = false;
+        isRolling = false;
         yield return null;
     }
 }
