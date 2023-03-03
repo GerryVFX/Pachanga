@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -11,24 +10,48 @@ public class GeneralInfo : MonoBehaviour
     [SerializeField] GameObject startBTN;
     [SerializeField] GameObject endTurnBTN;
 
-    void Update()
+    private void Awake()
     {
-        roundsTXT.text = "Ronda: " + PhasesManager.Instance.nRounds.ToString();
-        if (PhasesManager.Instance.startTurn == false) phasesTXT.text = "Start Round";
-        if (PhasesManager.Instance.rollPhase) phasesTXT.text = "Roll Phase";
-        if (PhasesManager.Instance.movePhase) phasesTXT.text = "Move Phase";
-        if (PhasesManager.Instance.eventPhase) phasesTXT.text = "Event Phase";
-        if (PhasesManager.Instance.endTurn)
-        {
-            phasesTXT.text = "EndTurn";
-            endTurnBTN.SetActive(true);
-        }
-        else
-        {
-            endTurnBTN.SetActive(false);
-        }
+        PhasesManager.Instance.PhaseChanged += OnPhaseChanged;
+    }
 
-        if (PhasesManager.Instance.startTurn) startBTN.SetActive(false);
-        if (PhasesManager.Instance.readyToStart) startBTN.SetActive(true);
+    private void Start()
+    {
+        OnPhaseChanged(PhasesManager.Instance.currentPhase);
+    }
+
+    private void OnDestroy()
+    {
+        PhasesManager.Instance.PhaseChanged -= OnPhaseChanged;
+    }
+    
+    private void OnPhaseChanged(Phases phase)
+    {
+        roundsTXT.text = "Ronda: " + PhasesManager.Instance.nRounds;
+        startBTN.SetActive(PhasesManager.Instance.currentPhase == Phases.Start);
+        endTurnBTN.SetActive(PhasesManager.Instance.currentPhase == Phases.End);
+
+        switch (phase)
+        {
+            case Phases.Start:
+                phasesTXT.text = "Start Round";
+                break;
+            case Phases.Roll:
+                phasesTXT.text = "Roll Phase";
+                break;
+            case Phases.Move:
+                phasesTXT.text = "Move Phase";
+                break;
+            case Phases.Event:
+                phasesTXT.text = "Event Phase";
+                break;
+            case Phases.End:
+                phasesTXT.text = "EndTurn";
+                break;
+            case Phases.None:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }

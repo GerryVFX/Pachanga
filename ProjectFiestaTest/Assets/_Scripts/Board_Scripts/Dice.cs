@@ -1,39 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class Dice : MonoBehaviour
 {
-    [SerializeField] Transform observer;
-    [SerializeField] Vector3[] facesLook;
+    [SerializeField] private Transform observer;
+    [SerializeField] private Vector3[] facesLook;
 
-    public int currentFace;
+    [SerializeField] private int currentFace;
     [SerializeField] private bool isRolling;
-    RaycastHit hit;
-
-    void Update()
-    {
-        if(Physics.Raycast(observer.position, observer.TransformDirection(Vector3.forward), out hit, 1f))
-        {
-            if (hit.transform.gameObject.tag == "face")
-            {
-                Debug.DrawRay(observer.position, observer.TransformDirection(Vector3.forward), Color.red);
-                currentFace = int.Parse(hit.transform.gameObject.name);
-            }
-        }
-    }
-
+    private RaycastHit hit;
+    
     public void ThrowDice()
     {
-        if (!isRolling)
-        {
-            isRolling = true;
-            StartCoroutine(RollDice());   
-        }
+        if (isRolling) return;
+        
+        isRolling = true;
+        StartCoroutine(RollDice());
     }
 
-    IEnumerator RollDice()
+    private IEnumerator RollDice()
     {
         float timeElapsed = 0f;
         float timeduration = 1.5f;
@@ -49,13 +34,21 @@ public class Dice : MonoBehaviour
         transform.rotation = Quaternion.Euler(facesLook[randomRotate]);
 
         yield return new WaitForSeconds(0.2f);
-
+        
+        if(Physics.Raycast(observer.position, observer.TransformDirection(Vector3.forward), out hit, 1f))
+        {
+            if (hit.transform.gameObject.CompareTag("face"))
+            {
+                currentFace = int.Parse(hit.transform.gameObject.name);
+            }
+        }
         PlayerManager.Instance.totalMoves = currentFace;
 
         yield return new WaitUntil(() => PlayerManager.Instance.totalMoves > 0);
         PlayerManager.Instance.nDice -=1;
-        PhasesManager.Instance.rollPhase = false;
         isRolling = false;
+        PhasesManager.Instance.currentPhase = Phases.None;
+        
         yield return null;
     }
 }
