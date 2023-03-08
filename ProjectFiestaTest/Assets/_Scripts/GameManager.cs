@@ -1,25 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+public enum SceneType
+{
+    Selection,
+    Board,
+    MiniGame
+}
+
+public delegate void OnSceneTypeChanged(SceneType sceneType);
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    
+    public event OnSceneTypeChanged SceneChanged;
 
-    [Header("Escena actual")]
-    public bool inSelection;
-    public bool inBoard;
-    public bool inMinigame;
+    [Header("Escena actual")] 
+    public SceneType currentSceneType;
+    private SceneType _tempSceneType;
 
-    [Header("Información de juego")]
+    [Header("InformaciÃ³n de juego")]
     public int nRound;
     public bool newGame;
     public bool endRound;
-    public bool startInBoard;
-    public bool startMinigame;
-    public int pointsToWin;
-    public string playerWin;
 
     private void Awake()
     {
@@ -29,27 +32,18 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
+        {
             Destroy(gameObject);
+        }
+
+        _tempSceneType = currentSceneType;
     }
 
-    void Update()
+    private void Update()
     {
-        //Estado de Escena
-
-        if (inSelection)
-        {
-            inBoard = false;
-            inMinigame = false;
-        }
-        if (inBoard)
-        {
-            inSelection = false;
-            inMinigame = false;
-        }
-        if (inMinigame)
-        {
-            inBoard = false;
-            inSelection = false;
-        }
-    }
+        if (_tempSceneType == currentSceneType) return;
+        
+        SceneChanged?.Invoke(currentSceneType);
+        _tempSceneType = currentSceneType;
+    }   
 }

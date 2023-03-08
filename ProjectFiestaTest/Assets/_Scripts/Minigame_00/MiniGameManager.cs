@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -11,6 +9,11 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] TMP_Text timeText;
 
     [SerializeField] bool endMinigame;
+
+    private void Start()
+    {
+        GameManager.Instance.currentSceneType = SceneType.MiniGame;
+    }
 
     private void Update()
     {

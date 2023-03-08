@@ -1,24 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }
-
-    //Variables uso en Creación de personaje
-    [Header("Uso en Creación de Personaje")]
+    
+    //Variables uso en Creacion de personaje
+    [Header("Uso en Creacion de Personaje")]
     public string playerName;
     public int characterIndex;
 
@@ -26,11 +14,11 @@ public class PlayerManager : MonoBehaviour
     [Header("Uso en BoardScene")]
     [SerializeField] GameObject playerPrefab;
     public int playerOrder;
-    public Vector3 playerPosinBoard;
+    public Vector3 playerPosInBoard;
     public Vector3 playerPosinMinigame;
     public int nDice;
     public int totalMoves;
-    public bool endMove;
+    public bool endMove = false;
     public bool inEvent;
     public int coins;
     public int winPoints;
@@ -40,26 +28,41 @@ public class PlayerManager : MonoBehaviour
     [Header("Uso en MinigameScene")]
     public bool winMinigame;
 
-    private void Update()
+    private void Awake()
     {
-
-        if (GameManager.Instance.inBoard)
+        if (Instance == null)
         {
-            if (GameManager.Instance.startInBoard)
-            {
-                Instantiate(playerPrefab, playerPosinBoard, Quaternion.identity);
-                PhasesManager.Instance.players.Add(playerPrefab);
-                GameManager.Instance.startInBoard = false;
-            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
 
-        if (GameManager.Instance.inMinigame)
+        GameManager.Instance.SceneChanged += OnSceneChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.SceneChanged -= OnSceneChanged;
+    }
+
+    private void OnSceneChanged(SceneType sceneType)
+    {
+        switch (sceneType)
         {
-            if (GameManager.Instance.startMinigame)
-            {
-                Instantiate(playerPrefab, playerPosinMinigame, Quaternion.identity);
-                GameManager.Instance.startInBoard = false;
-            }
+            case SceneType.Selection:
+                break;
+            case SceneType.Board:
+                Instantiate(playerPrefab, playerPosInBoard, Quaternion.identity);
+                PhasesManager.Instance.players.Add(playerPrefab);
+                break;
+            case SceneType.MiniGame:
+                //Instantiate(playerPrefab, playerPosinMinigame, Quaternion.identity);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

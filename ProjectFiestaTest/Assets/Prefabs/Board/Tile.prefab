@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3027164355421226251}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &707029613523574217
 MeshFilter:
@@ -129,7 +129,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3027164355421226251}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &1017013158372614986
 MeshFilter:
@@ -224,10 +224,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2780252095620947017}
-  - {fileID: 1692018365942330015}
   - {fileID: 6191785095011754706}
   - {fileID: 115108203288779971}
+  - {fileID: 2780252095620947017}
+  - {fileID: 1692018365942330015}
   m_Father: {fileID: 8187426244185270552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,21 +243,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b473f49bd293ae34d99a8234dca08211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conectors:
+  connectors:
   - {fileID: 6191785095011754706}
   - {fileID: 115108203288779971}
   - {fileID: 2780252095620947017}
   - {fileID: 1692018365942330015}
   player: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}
-  targetDirection: {x: 0, y: 0, z: 0}
+  camara: {fileID: 0}
   lerpDuration: 0
   playerOn: 0
   canMove: 0
-  stepCount: 0
   avalibleTile: 0
   currentTile: 0
-  visitedTile: 0
   isBack: 0
 --- !u!65 &5681018310886684454
 BoxCollider:
@@ -304,7 +301,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3027164355421226251}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &1160182458274218576
 MeshFilter:
@@ -499,7 +496,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3027164355421226251}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3360611654259723279
 MeshFilter:

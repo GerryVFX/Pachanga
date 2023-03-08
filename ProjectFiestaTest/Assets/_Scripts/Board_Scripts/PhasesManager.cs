@@ -3,25 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Phases
+{
+    Start,
+    Roll,
+    Move,
+    Event,
+    End,
+    None
+}
+
+public delegate void OnPhaseChanged(Phases phase);
+
 public class PhasesManager : MonoBehaviour
 {
     public static PhasesManager Instance;
+    
+    public event OnPhaseChanged PhaseChanged;
 
     //Control de players
-    public List<GameObject> players = new List<GameObject>();
-    public int totalPlayers;
+    public List<GameObject> players = new();
     public int currentPlayer;
     [SerializeField] Transform initialPos;
 
     //Estado de Ronda
-    public int nRounds;
-    public bool startRound, endRound;
-    public bool newGame;
+    [HideInInspector]public int nRounds;
 
     //Estado de fases
-    public bool readyToStart;
-    public bool rollPhase, movePhase, eventPhase;
-    public bool startTurn, endTurn;
+    public Phases currentPhase;
+    private Phases _tempPhase;
 
     private void Awake()
     {
@@ -33,108 +43,97 @@ public class PhasesManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        
         if (GameManager.Instance.newGame)
         {
             GameManager.Instance.newGame = false;
-            GameManager.Instance.inBoard = true;
-            PlayerManager.Instance.playerPosinBoard = initialPos.position; 
+            PlayerManager.Instance.playerPosInBoard = initialPos.position;
         }
-
-        
-    }
-
-    private void OnEnable()
-    {
-        GameManager.Instance.startInBoard = true;
-        readyToStart = true;
     }
 
     private void Start()
     {
+        GameManager.Instance.currentSceneType = SceneType.Board;
+        currentPhase = Phases.Start;
+        _tempPhase = currentPhase;
         
+        nRounds = GameManager.Instance.nRound;
     }
 
     private void Update()
     {
-        nRounds = GameManager.Instance.nRound;
-
-        RoundCicle();
-        TurnCicle();
-
+        if (_tempPhase != currentPhase)
+        {
+            PhaseChanged?.Invoke(currentPhase);
+            _tempPhase = currentPhase;
+        }
+        
+        RoundCycle();
+        TurnCycle();
     }
 
-    void RoundCicle()
+    private void RoundCycle()
     {
         if (GameManager.Instance.endRound)
         {
             GameManager.Instance.endRound = false;
-            readyToStart = true;
+            currentPhase = Phases.Start;
         }
     }
 
-    void TurnCicle()
+    private void TurnCycle()
     {
-        if (startTurn)
+        if (PlayerManager.Instance && currentPhase == Phases.Roll)
         {
             StartCoroutine(TurnPlayer());
         }
-
-        if (endTurn)
-        {
-            startTurn = false;
-            StopCoroutine(TurnPlayer());
-        }
     }
 
-    //Métodos por boton
+    private IEnumerator TurnPlayer()
+    {
+        yield return new WaitUntil(() => currentPhase != Phases.Roll);
+        
+        currentPhase = Phases.Move;
+
+        yield return new WaitUntil(() => currentPhase != Phases.Move);
+
+        if (PlayerManager.Instance.inEvent)
+        {
+            currentPhase = Phases.Event;
+        }
+        
+        yield return new WaitUntil(() => currentPhase != Phases.Event);
+        
+        currentPhase = Phases.End;
+
+        PlayerManager.Instance.endMove = false;
+
+        yield return null;
+    }
+
+    //Metodos por boton
     public void StartTurn()
     {
-        readyToStart = false;
-        startRound = false;
-        startTurn = true;
-        rollPhase = true;
         PlayerManager.Instance.nDice += 1;
+        currentPhase = Phases.Roll;
     }
 
     public void NextRound()
     {
-        if ((currentPlayer)+1 < players.Count)
+        if (currentPlayer+1 < players.Count)
         {
             currentPlayer += 1;
-            readyToStart = true;
+            currentPhase = Phases.Start;
         }
         else
         {
-            endTurn = false;
-            SceneManager.LoadScene(2);
+            GoToMiniGame();
         }
     }
 
-    IEnumerator TurnPlayer()
+    private void GoToMiniGame()
     {
-        yield return new WaitUntil(() => !rollPhase);
-
-        if(startTurn && !rollPhase) movePhase = true;
-
-        if(PlayerManager.Instance.endMove == true)
-        {
-            movePhase = false; 
-        }
-
-        yield return new WaitUntil(() => !movePhase);
-
-        if(startTurn && !movePhase) eventPhase = true;
-
-        if (PlayerManager.Instance.inEvent == false)
-        {
-            eventPhase = false;
-        }
-
-        yield return new WaitUntil(() => !eventPhase);
-        PlayerManager.Instance.endMove = false;
-        endTurn = true;
-        yield return null;
+        SceneManager.LoadScene(2);
     }
 
 }

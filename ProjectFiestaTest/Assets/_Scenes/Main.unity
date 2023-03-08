@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -194,7 +194,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &22949859
 MonoBehaviour:
@@ -208,16 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7853218735c5548459c4199b74a03f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inSelection: 0
-  inBoard: 0
-  inMinigame: 0
+  currentSceneType: 0
   nRound: 0
   newGame: 0
   endRound: 0
-  startInBoard: 0
-  startMinigame: 0
-  pointsToWin: 0
-  playerWin: 
 --- !u!1 &68166039
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +224,7 @@ GameObject:
   - component: {fileID: 68166042}
   - component: {fileID: 68166041}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Rounds text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +359,7 @@ GameObject:
   - component: {fileID: 109101483}
   - component: {fileID: 109101482}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Rounds number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -584,7 +578,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357877248
 GameObject:
@@ -726,7 +720,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nroundText: {fileID: 109101482}
   playerExample: {fileID: 350783413}
-  playerManager: {fileID: 0}
   nRound: 5
   colorSelection:
   - {fileID: 1011866632}
@@ -811,7 +804,7 @@ RectTransform:
   - {fileID: 1301272584}
   - {fileID: 11197858}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -971,37 +964,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8436756782617657925}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &895042771
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 895042772}
-  m_Layer: 0
-  m_Name: SlectionView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &895042772
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895042771}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0039088726, y: 0.34943944, z: 0.00063590705}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1011866632 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 788236152802503605, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
@@ -1054,7 +1016,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 4282979767019573350, guid: 474d34221066d9d48b0b7dfb74791b10,
     type: 3}
   playerOrder: 0
-  playerPosinBoard: {x: 0, y: 0, z: 0}
+  playerPosInBoard: {x: 0, y: 0, z: 0}
   playerPosinMinigame: {x: 0, y: 0, z: 0}
   nDice: 0
   totalMoves: 0
@@ -1077,7 +1039,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1069758741
 GameObject:
@@ -1145,7 +1107,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100038018
 GameObject:
@@ -1401,7 +1363,7 @@ GameObject:
   - component: {fileID: 1567723270}
   - component: {fileID: 1567723269}
   m_Layer: 5
-  m_Name: Plus (1)
+  m_Name: Subtract
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,7 +1408,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 452195640}
           m_TargetAssemblyTypeName: GameConfig, Assembly-CSharp
-          m_MethodName: MinumRound
+          m_MethodName: SubtractRound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1888,9 +1850,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 788236152802503604, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 788236152802503604, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 788236152802503604, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
     - target: {fileID: 788236152802503606, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2014,7 +1986,7 @@ PrefabInstance:
     - target: {fileID: 788236152802503610, guid: 27002dfb157b5e4429a80c1d3cd6d67c,
         type: 3}
       propertyPath: m_Name
-      value: Color
+      value: Color pink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27002dfb157b5e4429a80c1d3cd6d67c, type: 3}
@@ -2147,13 +2119,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714991702666908013, guid: 9724b2e6dcd6bd34191d15e7eaa29102,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714991702666908013, guid: 9724b2e6dcd6bd34191d15e7eaa29102,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 2714991702666908013, guid: 9724b2e6dcd6bd34191d15e7eaa29102,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714991702666908013, guid: 9724b2e6dcd6bd34191d15e7eaa29102,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2714991702666908015, guid: 9724b2e6dcd6bd34191d15e7eaa29102,
         type: 3}
       propertyPath: m_Name
-      value: Color (3)
+      value: Color green
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9724b2e6dcd6bd34191d15e7eaa29102, type: 3}
@@ -2166,9 +2153,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6256988546986270401, guid: 243ba66438ef64f48bbecaa99fd708e5,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256988546986270401, guid: 243ba66438ef64f48bbecaa99fd708e5,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 6256988546986270401, guid: 243ba66438ef64f48bbecaa99fd708e5,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256988546986270401, guid: 243ba66438ef64f48bbecaa99fd708e5,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6256988546986270403, guid: 243ba66438ef64f48bbecaa99fd708e5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2292,7 +2294,7 @@ PrefabInstance:
     - target: {fileID: 6256988546986270407, guid: 243ba66438ef64f48bbecaa99fd708e5,
         type: 3}
       propertyPath: m_Name
-      value: Color (2)
+      value: Color blue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 243ba66438ef64f48bbecaa99fd708e5, type: 3}
@@ -2425,13 +2427,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7076316771827161077, guid: 4565340665e6a6346924a8937a4d84c4,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076316771827161077, guid: 4565340665e6a6346924a8937a4d84c4,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 7076316771827161077, guid: 4565340665e6a6346924a8937a4d84c4,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076316771827161077, guid: 4565340665e6a6346924a8937a4d84c4,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7076316771827161079, guid: 4565340665e6a6346924a8937a4d84c4,
         type: 3}
       propertyPath: m_Name
-      value: Color (4)
+      value: Color purple
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4565340665e6a6346924a8937a4d84c4, type: 3}
@@ -2565,13 +2582,28 @@ PrefabInstance:
     - target: {fileID: 8436756783441966901, guid: edc511e4c936c69478f6754a905a5547,
         type: 3}
       propertyPath: m_Name
-      value: Color (5)
+      value: Color yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436756783441966903, guid: edc511e4c936c69478f6754a905a5547,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8436756783441966903, guid: edc511e4c936c69478f6754a905a5547,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 8436756783441966903, guid: edc511e4c936c69478f6754a905a5547,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436756783441966903, guid: edc511e4c936c69478f6754a905a5547,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edc511e4c936c69478f6754a905a5547, type: 3}
 --- !u!1001 &8787642822884249716
@@ -2704,12 +2736,27 @@ PrefabInstance:
     - target: {fileID: 8787642824030196200, guid: 34f159334d1acde498faf30e01e186fc,
         type: 3}
       propertyPath: m_Name
-      value: Color (1)
+      value: Color red
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787642824030196202, guid: 34f159334d1acde498faf30e01e186fc,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8787642824030196202, guid: 34f159334d1acde498faf30e01e186fc,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 452195640}
+    - target: {fileID: 8787642824030196202, guid: 34f159334d1acde498faf30e01e186fc,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787642824030196202, guid: 34f159334d1acde498faf30e01e186fc,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f159334d1acde498faf30e01e186fc, type: 3}
