@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class PlayerSettings : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static PlayerSettings Instance;
+    public int characterID;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    public void SetCharacter01()
+    {
+        characterID = 1;
+    }
+    public void SetCharacter02()
+    {
+        characterID = 2;
+    }
+    public void SetCharacter03()
+    {
+        characterID = 3;
+    }
+    public void SetCharacter04()
+    {
+        characterID = 4;
+    }
+    public void SetCharacter05()
+    {
+        characterID = 5;
+    }
+    public void SetCharacter06()
+    {
+        characterID = 6;
     }
 }
