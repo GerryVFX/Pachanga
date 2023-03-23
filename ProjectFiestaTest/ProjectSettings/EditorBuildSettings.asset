@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/MultiplayerTest/Launcher.unity
-    guid: 41fde5c39f77cb54ca38635d31ebb854
+    path: Assets/_Scenes/MiniGames/MiniGamesHub.unity
+    guid: 7b1dbbd1cfed7204eb5be3b5ea2e1860
   - enabled: 1
-    path: Assets/_Scenes/MultiplayerTest/RoomGame.unity
-    guid: 845dc45a8058b44498e01a845f0914ce
+    path: Assets/_Scenes/MiniGames/Games/Shooter.unity
+    guid: 7cce1bcb80561b045a524c081219000f
   m_configObjects: {}
