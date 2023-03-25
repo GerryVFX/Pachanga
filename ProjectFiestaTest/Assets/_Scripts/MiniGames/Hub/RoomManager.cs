@@ -37,10 +37,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if(scene.buildIndex == 1)
+        if (scene.buildIndex == 1)
         {
             PhotonNetwork.Instantiate(Path.Combine("ShooterPB", "PlayerManager"), Vector3.zero, Quaternion.identity);
         }
+        else return;
     }
     void Start()
     {

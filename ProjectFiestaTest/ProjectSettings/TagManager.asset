@@ -9,6 +9,7 @@ TagManager:
   - event
   - item
   - Floor
+  - SpawnPos
   layers:
   - Default
   - TransparentFX

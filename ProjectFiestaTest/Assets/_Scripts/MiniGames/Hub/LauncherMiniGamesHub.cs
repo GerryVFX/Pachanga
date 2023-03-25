@@ -10,7 +10,6 @@ public class LauncherMiniGamesHub : MonoBehaviourPunCallbacks
 {
     public static LauncherMiniGamesHub Instance;
 
-    [SerializeField] TMP_InputField playerNameInput;
     [SerializeField] TMP_InputField roomNameInput;
     [SerializeField] TMP_Text roomNameTMP;
     [SerializeField] TMP_Text errorMessage;
@@ -54,15 +53,6 @@ public class LauncherMiniGamesHub : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (string.IsNullOrEmpty(playerNameInput.text))
-        {
-            PhotonNetwork.NickName = "Player: " + Random.Range(0, 1000).ToString("0000");
-        }
-        else
-        {
-            PhotonNetwork.NickName = playerNameInput.text;
-        }
-
         MenuManager.Instance.OpenMenu("room");
         roomNameTMP.text = PhotonNetwork.CurrentRoom.Name;
 
