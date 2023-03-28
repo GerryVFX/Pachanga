@@ -9,4 +9,8 @@ public class GameLauncher : MonoBehaviour
     {
         PhotonNetwork.LoadLevel("Shooter");
     }
+    public void FallPlataformLauncher()
+    {
+        PhotonNetwork.LoadLevel("PlatformFalls");
+    }
 }

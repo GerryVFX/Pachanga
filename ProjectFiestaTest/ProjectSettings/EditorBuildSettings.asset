@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MiniGames/Games/Shooter.unity
     guid: 7cce1bcb80561b045a524c081219000f
+  - enabled: 1
+    path: Assets/_Scenes/MiniGames/Games/PlatformFalls.unity
+    guid: 5276c29237e719c47b3756d234e9d90f
   m_configObjects: {}
