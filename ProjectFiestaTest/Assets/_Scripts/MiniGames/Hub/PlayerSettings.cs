@@ -6,6 +6,7 @@ public class PlayerSettings : MonoBehaviour
 {
     public static PlayerSettings Instance;
     public int characterID;
+    public int nPlayer = 1;
 
     private void Awake()
     {

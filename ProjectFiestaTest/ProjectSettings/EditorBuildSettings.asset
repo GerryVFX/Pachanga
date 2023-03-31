@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MiniGames/Games/PlatformFalls.unity
     guid: 5276c29237e719c47b3756d234e9d90f
+  - enabled: 1
+    path: Assets/_Scenes/MiniGames/Games/Climb.unity
+    guid: d0ca5dfdce3f6334c92f84f24a894a70
+  - enabled: 1
+    path: Assets/_Scenes/MiniGames/Games/PlataformCollector.unity
+    guid: 718a7c91f56ae1342a52179cf165c244
   m_configObjects: {}

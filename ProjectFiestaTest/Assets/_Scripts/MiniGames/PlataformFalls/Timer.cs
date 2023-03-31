@@ -5,6 +5,8 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance;
+
     [SerializeField] TMP_Text startTimer;
     [SerializeField] TMP_Text timerText;
 
@@ -12,6 +14,15 @@ public class Timer : MonoBehaviour
     [SerializeField] float timeElapsed;
     int minutes, seconds;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(gameObject);
+
+    }
     void Start()
     {
         StartCoroutine(StartTimer());

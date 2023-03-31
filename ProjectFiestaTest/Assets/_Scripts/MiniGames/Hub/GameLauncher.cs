@@ -13,4 +13,12 @@ public class GameLauncher : MonoBehaviour
     {
         PhotonNetwork.LoadLevel("PlatformFalls");
     }
+    public void Climb()
+    {
+        PhotonNetwork.LoadLevel("Climb");
+    }
+    public void Collector()
+    {
+        PhotonNetwork.LoadLevel("PlataformCollector");
+    }
 }
